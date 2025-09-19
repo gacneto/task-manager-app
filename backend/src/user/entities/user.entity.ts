@@ -6,10 +6,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
-  BeforeInsert,
 } from 'typeorm';
-import * as bcrypt from 'bcryptjs';
-import { IsEmail, MinLength } from 'class-validator';
 
 @Entity()
 export class User {
@@ -19,11 +16,9 @@ export class User {
   @Column({ nullable: false })
   name: string;
 
-  @IsEmail()
   @Column({ unique: true, nullable: false })
   email: string;
 
-  @MinLength(6)
   @Column({ nullable: false })
   password: string;
 
@@ -36,8 +31,8 @@ export class User {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @BeforeInsert()
-  async hashPassword() {
-    this.password = await bcrypt.hash(this.password, 10);
-  }
+  // @BeforeInsert()
+  // async hashPassword() {
+  //   this.password = await bcrypt.hash(this.password, 10);
+  // }
 }
